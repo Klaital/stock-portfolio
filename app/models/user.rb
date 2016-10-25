@@ -3,7 +3,7 @@ class User < ApplicationRecord
     self.email = email.downcase
     self.slug = slug.downcase
   end
-  
+
   VALID_SLUG_REGEX = /\A[\w+\-\._\d]+\z/i
   validates :slug,
             presence: true,
@@ -17,4 +17,9 @@ class User < ApplicationRecord
             length: {maximum: 255},
             format: {with: VALID_EMAIL_REGEX},
             uniqueness: {case_sensitive: false}
+
+  has_secure_password
+  validates :password,
+            presence: true,
+            length: { minimum: 6 }
 end
