@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  before_save do
+    self.email = email.downcase
+    self.slug = slug.downcase
+  end
+  
   VALID_SLUG_REGEX = /\A[\w+\-\._\d]+\z/i
   validates :slug,
             presence: true,
