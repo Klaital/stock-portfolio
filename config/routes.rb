@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'users#index'
+  root 'sessions#new'
 
   get '/about',     to: 'static_pages#about'
   get '/contact',   to: 'static_pages#contact'

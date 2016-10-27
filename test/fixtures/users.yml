@@ -3,9 +3,9 @@
 one:
   slug: user1
   email: user1@example.com
-  password_digest: $2a$10$mj7znQ3qYa8bFy7lPRs/KOeSaWYiDAhQoZYRSqrBOZfWtIhD5o7My
+  password_digest: <%= User.digest('foobar') %>
 
 two:
   slug: user-2
   email: user2@example.com
-  password_digest: $2a$10$mj7znQ3qYa8bFy7lPRs/KOeSaWYiDAhQoZYRSqrBOZfWtIhD5o7My
+  password_digest: <%= User.digest('foobar') %>
