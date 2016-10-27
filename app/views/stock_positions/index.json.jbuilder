@@ -1,0 +1,1 @@
+json.array! @stock_positions, partial: 'stock_positions/stock_position', as: :stock_position

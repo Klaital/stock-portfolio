@@ -1,0 +1,52 @@
+<%= form_for(stock_position) do |f| %>
+  <% if stock_position.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(stock_position.errors.count, "error") %> prohibited this stock_position from being saved:</h2>
+
+      <ul>
+      <% stock_position.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :symbol %>
+    <%= f.text_field :symbol %>
+  </div>
+
+  <div class="field">
+    <%= f.label :qty %>
+    <%= f.number_field :qty %>
+  </div>
+
+  <div class="field">
+    <%= f.label :purchase_date %>
+    <%= f.datetime_select :purchase_date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :purchase_price %>
+    <%= f.number_field :purchase_price %>
+  </div>
+
+  <div class="field">
+    <%= f.label :commission %>
+    <%= f.number_field :commission %>
+  </div>
+
+  <div class="field">
+    <%= f.label :current_price %>
+    <%= f.number_field :current_price %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_updated %>
+    <%= f.datetime_select :last_updated %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Symbol:</strong>
+  <%= @stock_position.symbol %>
+</p>
+
+<p>
+  <strong>Qty:</strong>
+  <%= @stock_position.qty %>
+</p>
+
+<p>
+  <strong>Purchase date:</strong>
+  <%= @stock_position.purchase_date %>
+</p>
+
+<p>
+  <strong>Purchase price:</strong>
+  <%= @stock_position.purchase_price %>
+</p>
+
+<p>
+  <strong>Commission:</strong>
+  <%= @stock_position.commission %>
+</p>
+
+<p>
+  <strong>Current price:</strong>
+  <%= @stock_position.current_price %>
+</p>
+
+<p>
+  <strong>Last updated:</strong>
+  <%= @stock_position.last_updated %>
+</p>
+
+<%= link_to 'Edit', edit_stock_position_path(@stock_position) %> |
+<%= link_to 'Back', stock_positions_path %>

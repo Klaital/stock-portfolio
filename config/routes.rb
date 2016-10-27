@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :stock_positions
+  get '/update_positions', to: 'users#update_positions'
   root 'sessions#new'
 
   get '/about',     to: 'static_pages#about'

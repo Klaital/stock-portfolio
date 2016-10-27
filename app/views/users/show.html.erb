@@ -1,15 +1,33 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Slug:</strong>
-  <%= @user.slug %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-
 <%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Back', users_path %> |
+<%= link_to 'Update Positions', update_positions_path %>
+
+<h2>Stocks</h2>
+<table>
+  <tr>
+    <th>Symbol</th>
+    <th><span title="Number of shares">Qty</span></th>
+    <th>Buy Date</th>
+    <th><span title="The share price paid to purchase this stock">Buy $</span></th>
+    <th><span title="How much commission was paid on buying this stock">Comm.</span></th>
+    <th><span title="The most recent share price">Current $</span></th>
+    <th><span title="When this position's valid was last checked">Updated</span></th>
+    <th><span title="How much this position is currently worth">Current Value</span></th>
+    <th>Overal Gain</th>
+  </tr>
+  <% @user.stock_positions.each do |stock| %>
+  <tr>
+    <td><%= stock.symbol %></td>
+    <td><%= stock.qty %></td>
+    <td><%= stock.purchase_date %></td>
+    <td>$<%= stock.purchase_price_string %></td>
+    <td>$<%= stock.commission_string %></td>
+    <td>$<%= stock.current_price_string %></td>
+    <td><%= stock.last_updated %></td>
+    <td>$<%= stock.current_value_string %></td>
+    <td>TBD</td>
+  </tr>
+  <% end %>
+</table>

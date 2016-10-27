@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  has_many :stock_positions, dependent: :destroy
+  has_many :api_keys, dependent: :destroy
+
   before_save do
     self.email = email.downcase
     self.slug = slug.downcase
@@ -27,5 +30,12 @@ class User < ApplicationRecord
   def User.digest(s)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
     BCrypt::Password.create(s, cost: cost)
+  end
+
+  def update_positions
+    stock_positions.each do |p|
+      p.update_from_quandl
+      p.save
+    end
   end
 end

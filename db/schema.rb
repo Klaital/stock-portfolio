@@ -10,7 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161025210609) do
+ActiveRecord::Schema.define(version: 20161027203846) do
+
+  create_table "api_keys", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "service"
+    t.string   "secret"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_api_keys_on_user_id"
+  end
+
+  create_table "stock_positions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "symbol"
+    t.integer  "qty"
+    t.datetime "purchase_date"
+    t.integer  "purchase_price"
+    t.integer  "commission"
+    t.integer  "current_price"
+    t.datetime "last_updated"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "dataset"
+    t.index ["user_id"], name: "index_stock_positions_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "slug"

@@ -1,0 +1,2 @@
+module StockPositionsHelper
+end

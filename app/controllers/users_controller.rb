@@ -21,6 +21,16 @@ class UsersController < ApplicationController
   def edit
   end
 
+  # GET /users/1/update_positions
+  def update_positions
+    if logged_in?
+      current_user.update_positions
+      redirect_to current_user
+    else
+      redirect_to root_path
+    end
+  end
+
   # POST /users
   # POST /users.json
   def create
