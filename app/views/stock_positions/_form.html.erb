@@ -1,4 +1,4 @@
-<%= form_for(stock_position) do |f| %>
+<%= form_for([current_user, stock_position]) do |f| %>
   <% if stock_position.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(stock_position.errors.count, "error") %> prohibited this stock_position from being saved:</h2>
@@ -15,8 +15,13 @@
     <%= f.label :symbol %>
     <%= f.text_field :symbol %>
   </div>
-
   <div class="field">
+    <%= f.label :dataset %>
+    <%= f.text_field :dataset %>
+  </div>
+
+
+    <div class="field">
     <%= f.label :qty %>
     <%= f.number_field :qty %>
   </div>

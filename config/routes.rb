@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :stock_positions
   get '/update_positions', to: 'users#update_positions'
   root 'sessions#new'
 
@@ -11,7 +10,9 @@ Rails.application.routes.draw do
   post  '/login',     to: 'sessions#create'
   delete '/logout',   to: 'sessions#destroy'
 
-  resources :users
+  resources :users do
+    resources :stock_positions
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

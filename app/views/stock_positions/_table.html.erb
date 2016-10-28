@@ -1,0 +1,36 @@
+<table class="stock-positions">
+  <thead>
+  <tr>
+    <th>Symbol</th>
+    <th><span title="Number of shares">Qty</span></th>
+    <th>Buy Date</th>
+    <th><span title="The share price paid to purchase this stock">Buy $</span></th>
+    <th><span title="How much commission was paid on buying this stock">Comm.</span></th>
+    <th><span title="The most recent share price">Current $</span></th>
+    <th><span title="When this position's valid was last checked">Updated</span></th>
+    <th><span title="How much this position is currently worth">Current Value</span></th>
+    <th>Overal Gain</th>
+    <th>% Growth</th>
+    <td colspan="2"></td>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% user.stock_positions.each do |stock| %>
+      <tr>
+        <td><%= stock.symbol %></td>
+        <td><%= stock.qty %></td>
+        <td><span title="<%= stock.purchase_date %>"><%= stock.purchase_date_string %></span></td>
+        <td>$<%= stock.purchase_price_string %></td>
+        <td>$<%= stock.commission_string %></td>
+        <td>$<%= stock.current_price_string %></td>
+        <td><span title="<%= stock.last_updated %>"><%= stock.last_updated_string %></span></td>
+        <td>$<%= stock.current_value_string %></td>
+        <td>$<%= stock.current_yield_string %></td>
+        <td><%= stock.current_yield_percent %>%</td>
+        <td><%= link_to 'Edit', edit_user_stock_position_path(user, stock) %></td>
+        <td><%= link_to 'Destroy', [user, stock], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

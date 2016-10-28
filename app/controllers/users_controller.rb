@@ -31,6 +31,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def add_position
+    redirect_to root_path unless logged_in?
+    @user = current_user
+  end
+
   # POST /users
   # POST /users.json
   def create

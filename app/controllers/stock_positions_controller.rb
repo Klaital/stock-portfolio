@@ -4,7 +4,7 @@ class StockPositionsController < ApplicationController
   # GET /stock_positions
   # GET /stock_positions.json
   def index
-    @stock_positions = StockPosition.all
+    @stock_positions = current_user.stock_positions.all
   end
 
   # GET /stock_positions/1
@@ -14,7 +14,7 @@ class StockPositionsController < ApplicationController
 
   # GET /stock_positions/new
   def new
-    @stock_position = StockPosition.new
+    @stock_position = current_user.stock_positions.create
   end
 
   # GET /stock_positions/1/edit
@@ -24,11 +24,11 @@ class StockPositionsController < ApplicationController
   # POST /stock_positions
   # POST /stock_positions.json
   def create
-    @stock_position = StockPosition.new(stock_position_params)
+    @stock_position = current_user.stock_positions.create(stock_position_params)
 
     respond_to do |format|
       if @stock_position.save
-        format.html { redirect_to @stock_position, notice: 'Stock position was successfully created.' }
+        format.html { redirect_to current_user, notice: 'Stock position was successfully created.' }
         format.json { render :show, status: :created, location: @stock_position }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class StockPositionsController < ApplicationController
   def update
     respond_to do |format|
       if @stock_position.update(stock_position_params)
-        format.html { redirect_to @stock_position, notice: 'Stock position was successfully updated.' }
+        format.html { redirect_to current_user, notice: 'Stock position was successfully updated.' }
         format.json { render :show, status: :ok, location: @stock_position }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class StockPositionsController < ApplicationController
   def destroy
     @stock_position.destroy
     respond_to do |format|
-      format.html { redirect_to stock_positions_url, notice: 'Stock position was successfully destroyed.' }
+      format.html { redirect_to user_stock_positions_url, notice: 'Stock position was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -64,7 +64,7 @@ class StockPositionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_stock_position
-      @stock_position = StockPosition.find(params[:id])
+      @stock_position = current_user.stock_positions.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

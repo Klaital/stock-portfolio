@@ -38,4 +38,42 @@ class User < ApplicationRecord
       p.save
     end
   end
+
+  def current_value
+    sum = 0
+    stock_positions.each do |p|
+      sum += p.current_value
+    end
+    sum
+  end
+  def current_value_dollars
+    current_value.to_f / 100.0
+  end
+  def current_value_string
+    dollars = (current_value / 100).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
+    pennies = (current_value % 100).to_s.rjust(2, '0')
+    "#{dollars}.#{pennies}"
+  end
+
+  # Compute how much money has been gained or lost on this position.
+  def current_yield
+    sum = 0
+    stock_positions.each do |p|
+      sum += p.current_yield
+    end
+    sum
+  end
+  def current_yield_dollars
+    current_yield.to_f / 100.0
+  end
+  def current_yield_string
+    dollars = (current_yield / 100).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
+    pennies = (current_yield % 100).to_s.rjust(2, '0')
+    "#{dollars}.#{pennies}"
+  end
+  def current_yield_percent(rounding_places=2)
+    # ((current_yield.to_f * 100.0) / (purchase_price * qty).to_f).round(rounding_places)
+    "Coming Soon!"
+  end
+
 end

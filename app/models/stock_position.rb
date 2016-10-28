@@ -44,6 +44,14 @@ class StockPosition < ApplicationRecord
   ## Utility Methods for computing value, converting cents to dollar-strings, etc.
   ##
 
+  def purchase_date_string
+    logger.debug("Formatting Purchase Date String: '#{purchase_date}'")
+    "#{purchase_date.year}-#{purchase_date.month.to_s.rjust(2,'0')}-#{purchase_date.day.to_s.rjust(2,'0')}"
+  end
+  def last_updated_string
+    "#{last_updated.year}-#{last_updated.month.to_s.rjust(2,'0')}-#{last_updated.day.to_s.rjust(2,'0')}"
+  end
+
   def purchase_price_dollars
     purchase_price.to_f / 100.0
   end
@@ -71,8 +79,9 @@ class StockPosition < ApplicationRecord
     "#{dollars}.#{pennies}"
   end
 
+  # Compute the current value of the position as it stands currently.
   def current_value
-    (current_price * qty) - commission
+    (current_price * qty)
   end
   def current_value_dollars
     current_value.to_f / 100.0
@@ -82,4 +91,21 @@ class StockPosition < ApplicationRecord
     pennies = (current_value % 100).to_s.rjust(2, '0')
     "#{dollars}.#{pennies}"
   end
+
+  # Compute how much money has been gained or lost on this position.
+  def current_yield
+    current_value - commission - (purchase_price * qty)
+  end
+  def current_yield_dollars
+    current_yield.to_f / 100.0
+  end
+  def current_yield_string
+    dollars = (current_yield / 100).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
+    pennies = (current_yield % 100).to_s.rjust(2, '0')
+    "#{dollars}.#{pennies}"
+  end
+  def current_yield_percent(rounding_places=2)
+    ((current_yield.to_f * 100.0) / (purchase_price * qty).to_f).round(rounding_places)
+  end
+
 end

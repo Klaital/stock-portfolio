@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 
 <p>
   <strong>Symbol:</strong>
@@ -35,5 +34,5 @@
   <%= @stock_position.last_updated %>
 </p>
 
-<%= link_to 'Edit', edit_stock_position_path(@stock_position) %> |
-<%= link_to 'Back', stock_positions_path %>
+<%= link_to 'Edit', edit_user_stock_position_path(current_user, @stock_position) %> |
+<%= link_to 'Back', user_stock_positions_path %>

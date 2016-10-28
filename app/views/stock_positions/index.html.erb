@@ -1,39 +1,6 @@
-<p id="notice"><%= notice %></p>
 
 <h1>Stock Positions</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Symbol</th>
-      <th>Qty</th>
-      <th>Purchase date</th>
-      <th>Purchase price</th>
-      <th>Commission</th>
-      <th>Current price</th>
-      <th>Last updated</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @stock_positions.each do |stock_position| %>
-      <tr>
-        <td><%= stock_position.symbol %></td>
-        <td><%= stock_position.qty %></td>
-        <td><%= stock_position.purchase_date %></td>
-        <td><%= stock_position.purchase_price %></td>
-        <td><%= stock_position.commission %></td>
-        <td><%= stock_position.current_price %></td>
-        <td><%= stock_position.last_updated %></td>
-        <td><%= link_to 'Show', stock_position %></td>
-        <td><%= link_to 'Edit', edit_stock_position_path(stock_position) %></td>
-        <td><%= link_to 'Destroy', stock_position, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<%= render 'table', :user => current_user %>
 <br>
 
-<%= link_to 'New Stock Position', new_stock_position_path %>
+<%= link_to 'New Stock Position', new_user_stock_position_path %>
