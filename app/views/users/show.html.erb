@@ -16,3 +16,5 @@
 </table>
 <h2>Stocks</h2>
 <%= render 'stock_positions/table', :user => @user %>
+<br />
+<%= link_to 'New Stock Position', new_user_stock_position_path(@user) %>
