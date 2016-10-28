@@ -69,6 +69,6 @@ class StockPositionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stock_position_params
-      params.require(:stock_position).permit(:symbol, :qty, :purchase_date, :purchase_price, :commission, :current_price, :last_updated)
+      params.require(:stock_position).permit(:symbol, :qty, :purchase_date, :purchase_price, :commission, :current_price, :last_updated, :dataset)
     end
 end
