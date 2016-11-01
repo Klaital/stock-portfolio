@@ -5,15 +5,18 @@ class StockPosition < ApplicationRecord
   def update_from_quandl
     key = user.api_keys.find_by(service: 'Quandl')
     url = "https://www.quandl.com/api/v3/datasets/#{dataset}/#{symbol}.csv?api_key=#{key.secret}"
+    logger.debug("Calling #{url}")
     uri = URI.parse(url)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = uri.scheme == 'https'
     data = http.get(uri.request_uri)
 
+    logger.debug("Got response from Quandl: #{data.code} #{data.message}")
     if data.code == "200"
       lines = data.body.split("\n")
       newest_date = Date.new(1900,01,01)
       newest_line = nil
+      logger.debug("Response CSV has #{lines.length} rows")
       lines.each do |line|
         # Skip the header
         next if line.start_with?("Date,")
@@ -28,7 +31,7 @@ class StockPosition < ApplicationRecord
       end
 
       if newest_line.nil?
-        # TODO: add logging error here
+        logger.error("No data found in response!")
         return nil
       end
 
@@ -37,7 +40,10 @@ class StockPosition < ApplicationRecord
       cents = cents.rjust(2,'0')
       current_price = "#{dollars}#{cents}".to_i
       last_updated = newest_date
+      logger.info("Got new price #{current_price} as of #{last_updated}")
     end
+
+    self
   end
 
   ##

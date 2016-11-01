@@ -34,7 +34,9 @@ class User < ApplicationRecord
 
   def update_positions
     stock_positions.each do |p|
+      logger.info("Updating stock #{p.dataset}.#{p.symbol} for user #{p.user.email}")
       p.update_from_quandl
+      logger.debug("Stock updated: #{p.current_value} @ #{p.last_updated}")
       p.save
     end
   end
